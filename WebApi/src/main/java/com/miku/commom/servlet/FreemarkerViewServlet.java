@@ -43,7 +43,6 @@ public class FreemarkerViewServlet extends HttpServlet {
         String templateName = CollUtil.getLast(urlPath.getSegments());
         Template template = configuration.getTemplate(templateName);
 
-
         Map<String, Object> root = CollUtil.newHashMap();
         Enumeration<String> attributeNames = req.getAttributeNames();
         while (attributeNames.hasMoreElements()) {
@@ -51,8 +50,7 @@ public class FreemarkerViewServlet extends HttpServlet {
             root.put(attributeName, req.getAttribute(attributeName));
         }
 
-        StaticLog.info("\nrequestURI=>{}\n templateName=>{}\n root={}\n", requestURI, templateName, root);
-
+        StaticLog.info("\n访问URL=>{}\n 模板名称=>{}\n 模型数据={}\n", requestURI, templateName, root);
         try {
             template.process(root, resp.getWriter());
         } catch (TemplateException e) {
